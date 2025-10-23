@@ -1,14 +1,5 @@
 package shopping;
 
-/*
- Ask the user for item prices and quantities, then calculate the total cost.
-2. Add localization for:
-o English
-o Finnish
-o Swedish
-o Japanese
- */
-
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
