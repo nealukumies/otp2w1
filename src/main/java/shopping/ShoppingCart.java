@@ -14,7 +14,8 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class ShoppingCart {
-    private int totalCost;
+    public int totalCost;
+    public ResourceBundle rb;
 
     public ShoppingCart() {
         this.totalCost = 0;
@@ -33,15 +34,7 @@ public class ShoppingCart {
         addTotalCost(cost);
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        ShoppingCart shoppingCart = new ShoppingCart();
-        System.out.println("1. English (US)");
-        System.out.println("2. Finnish (Suomi)");
-        System.out.println("3. Swedish (Sverige)");
-        System.out.println("4. Japanese (日本)");
-        System.out.println("Choose language:");
-        String choice = scanner.nextLine();
+    public void setResourceBundle(String choice) {
         String language;
         String country;
         switch (choice) {
@@ -68,14 +61,27 @@ public class ShoppingCart {
         }
 
         Locale locale = new Locale(language, country);
-        ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle", locale);
-        String welcomeMessage = rb.getString("welcome");
+        rb = ResourceBundle.getBundle("MessagesBundle", locale);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ShoppingCart shoppingCart = new ShoppingCart();
+        System.out.println("1. English (US)");
+        System.out.println("2. Finnish (Suomi)");
+        System.out.println("3. Swedish (Sverige)");
+        System.out.println("4. Japanese (日本)");
+        System.out.println("Choose language:");
+        String choice = scanner.nextLine();
+        shoppingCart.setResourceBundle(choice);
+
+        String welcomeMessage = shoppingCart.rb.getString("welcome");
         System.out.println(welcomeMessage);
-        String enterItemAmountMessage = rb.getString("itemAmount");
-        String enterPriceMessage = rb.getString("price");
-        String enterQuantityMessage = rb.getString("quantity");
-        String totalCostMessage = rb.getString("totalCost");
-        String itemNumberMessage = rb.getString("itemNumber");
+        String enterItemAmountMessage = shoppingCart.rb.getString("itemAmount");
+        String enterPriceMessage = shoppingCart.rb.getString("price");
+        String enterQuantityMessage = shoppingCart.rb.getString("quantity");
+        String totalCostMessage = shoppingCart.rb.getString("totalCost");
+        String itemNumberMessage = shoppingCart.rb.getString("itemNumber");
 
         System.out.println(enterItemAmountMessage);
         int itemAmount = Integer.parseInt(scanner.nextLine());
@@ -90,8 +96,6 @@ public class ShoppingCart {
             shoppingCart.calculateItemCost(price, quantity);
             counter++;
         }
-
         System.out.println(totalCostMessage + " " + shoppingCart.getTotalCost());
-
     }
 }
