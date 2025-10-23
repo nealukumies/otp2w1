@@ -15,7 +15,7 @@ pipeline {
 
         stage('Checking') {
             steps {
-                git branch: 'main', url: 'https://github.com/nealukumies/otp2w1.git'
+                git branch: 'master', url: 'https://github.com/nealukumies/otp2w1.git'
             }
         }
 
